@@ -12,6 +12,6 @@
 int main(void)
 {
 	char quotee[] = "and that piece of art is useful\" - Dora Korpar, 2015-10-19\n";
-	write(1, quotee, 58);
+	write(1, quotee, 59);
 	return (1);
 }
