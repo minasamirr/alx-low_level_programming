@@ -16,15 +16,13 @@ int main(void)
 	/* prints a - z */
 	while (ch <= 'z')
 	{
-		putchar(ch);
-		++ch;
+		putchar(ch++);
 	}
 
 	/* print A - Z */
 	while (CH <= 'Z')
 	{
-		putchar(CH);
-		++CH;
+		putchar(CH++);
 	}
 	putchar('\n');
 
