@@ -10,15 +10,18 @@
 
 int main(void)
 {
-    char hex_digits[] = "0123456789abcdef";
-    int i;
+	int digit = 48; /* 48; decimal representaion of 0 */
 
-    for (i = 0; i < 16; i++)
-    {
-        putchar(hex_digits[i]);
-    }
+	while (digit <= 102) /* 102; decimal representaion of f */
+	{
+		putchar(digit);
 
-    putchar('\n');
+		/* after we put 9 we jump to 96 */
+		if (digit == 57)
+			digit += 39;
+		++digit;
+	}
+	putchar('\n');
 
-    return (0);
+	return (0);
 }
