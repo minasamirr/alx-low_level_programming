@@ -5,6 +5,20 @@
  *        1 and 2, separated by a comma followed by a space.
  *
  * Return: Always 0.
+ *
+ *
+ * calculate fibonacci number till 91
+ * to avoid overflow since we use insigned long
+ *
+ * break fib1 and fib2 numbers into 2 parts
+ * fib*_part1 contain the 1st part of the number
+ * fib*_part2 contain the 2nd part of the number
+ *
+ * we add the parts of the numbers
+ * if the 2nd exceed 9,999,999,999
+ * then there will be an overflow
+ * so we add 1 to the 1st part
+ * and we modules the 2nd part
  */
 int main(void)
 {
@@ -13,10 +27,6 @@ int main(void)
 	unsigned long fib1_part1, fib1_part2, fib2_part1, fib2_part2;
 	unsigned long part1, part2;
 
-	/*
-	 * calculate fibonacci number till 91
-	 * to avoid overflow since we use insigned long
-	*/
 	for (count = 0; count < 92; count++)
 	{
 		sum = fib1 + fib2;
@@ -26,23 +36,11 @@ int main(void)
 		fib2 = sum;
 	}
 	
-	/*
-	 * break fib1 and fib2 numbers into 2 parts
-	 * fib*_part1 contain the 1st part of the number
-	 * fib*_part2 contain the 2nd part of the number
-	*/
 	fib1_part1 = fib1 / 10000000000;
 	fib1_part2 = fib1 % 10000000000;
 	fib2_part1 = fib2 / 10000000000;
 	fib2_part2 = fib2 % 10000000000;
 
-	/*
-	 * we add the parts of the numbers
-	 * if the 2nd exceed 9,999,999,999
-	 * then there will be an overflow
-	 * so we add 1 to the 1st part
-	 * and we modules the 2nd part
-	*/
 	for (count = 93; count < 99; count++)
 	{
 		part1 = fib1_part1 + fib2_part1;
