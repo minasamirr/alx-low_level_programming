@@ -29,9 +29,9 @@ void times_table(void)
 			if (result < 10)
 				_putchar(' ');
 			else
-				_putchar((prod / 10) + 48); /*get the first digit in the result*/
+				_putchar((result / 10) + 48); /*get the first digit in the result*/
 
-			_putchar((prod % 10) + 48); /*get the second digit in the result*/
+			_putchar((result % 10) + 48); /*get the second digit in the result*/
 		}
 		_putchar('\n');
 	}
