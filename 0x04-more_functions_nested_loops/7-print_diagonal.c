@@ -18,7 +18,9 @@ void print_diagonal(int n)
 			for (row = 0; row < col; row++)
 				_putchar(' ');
 			_putchar('\');
+			_putchar('\n');
 		}
 	}
-	_putchar('\n');
+	else
+		_putchar('\n')
 }
