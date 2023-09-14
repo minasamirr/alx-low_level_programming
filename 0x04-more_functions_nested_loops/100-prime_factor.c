@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "main.h"
+
 /**
  * main - prints the largest prime factor of 612852475143
  * 
@@ -8,7 +8,7 @@
 
 int largest_prime_factor(unsigned long int n)
 {
-	long int i, large;
+	int i, large;
 
 	while (n % 2 == 0)
 		n /= 2;
