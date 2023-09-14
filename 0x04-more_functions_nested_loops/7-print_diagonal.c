@@ -1,4 +1,4 @@
-#include"main.h"
+#include "main.h"
 
 /**
  * print_diagonal - print a diagonal line
@@ -17,10 +17,10 @@ void print_diagonal(int n)
 		{
 			for (row = 0; row < col; row++)
 				_putchar(' ');
-			_putchar('\');
+			_putchar(92);
 			_putchar('\n');
 		}
 	}
 	else
-		_putchar('\n')
+		_putchar('\n');
 }
