@@ -4,6 +4,8 @@
  * _atoi - Convert a string to an integer.
  * @s: The pointer to convert
  *
+ * we multiple the num by 10 to shift it to the left and then we subtract '0' ASCII code from the char to convert it to number
+ * 
  * Return: integer
  */
 
@@ -17,10 +19,10 @@ int _atoi(char *s)
 		i *= -1;
 
 	else if (*s >= '0' && *s <= '9')
-		num = num * 10 + (*s - '0'); /*we multiple the num by 10 to shift it to the left and then we subtract '0' ASCII code from the char to convert it to number*/
+		num = num * 10 + (*s - '0');
 	else if (num > 0)
 		break;
 	} while (*s++);
 
-	return (num *i);
+	return (num * i);
 }
