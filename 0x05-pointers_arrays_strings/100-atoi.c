@@ -5,7 +5,7 @@
  * @s: The pointer to convert
  *
  * we multiple the num by 10 to shift it to the left
- * then we subtract '0' ASCII code from the char to convert it to number 
+ * then we subtract '0' ASCII code from the char to convert it to number
  * Return: integer
  */
 
