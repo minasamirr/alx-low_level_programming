@@ -6,9 +6,8 @@
  * @src: The source of strings
  * @dest: The destination of the string
  * @n: The length of int
- *
  * Return: pointer to the resulting string dest
- */
+*/
 char *_strcat(char *dest, char *src)
 {
 	int i = 0, j;
