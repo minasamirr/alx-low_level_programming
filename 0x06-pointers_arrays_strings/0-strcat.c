@@ -6,6 +6,7 @@
  * @src: The source of strings
  * @dest: The destination of the string
  * @n: The length of int
+ *
  * Return: pointer to the resulting string dest
 */
 char *_strcat(char *dest, char *src)
@@ -14,7 +15,7 @@ char *_strcat(char *dest, char *src)
 
 	while (dest[i])
 		i++;
-	for (j = 0; src[j] ; j++)
+	for (j = 0; src[j]; j++)
 		dest[i++] = src[j];
 
 	return (dest);
