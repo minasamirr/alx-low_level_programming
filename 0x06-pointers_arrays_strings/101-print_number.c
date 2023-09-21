@@ -1,10 +1,11 @@
 #include "main.h"
 
 /*
- * print_number - Prints any integer with putchar
+ * print_number - Prints any integer using putchar and recursion
+ *
  * @n: Number to prints
  *
- * Return: Nothing
+ * Return: 0
 */
 void print_number(int n)
 {
