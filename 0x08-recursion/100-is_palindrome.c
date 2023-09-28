@@ -27,7 +27,7 @@ int _strlen_recursion(char *s)
 int palindrome_checker(char *s, int left, int right)
 {
 	if (s[left] == s[right])
-		if (left > right / 2)
+		if (left > right)
 			return (1);
 		else
 			return (palindrome_checker(s, ++left, --right));
