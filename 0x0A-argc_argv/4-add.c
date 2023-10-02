@@ -1,63 +1,61 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
 
 /**
- * isPositiveInteger - Check if a string contains only digits
- * @str: The string to check
- *
- * Return: true if the string contains only digits, false otherwise
- */
-bool isPositiveInteger(const char *str)
+ * isNumber - check if string array is num
+ * @num: string to check
+ * Return: 0 if it's a number
+ *         1 if it's not a number
+*/
+
+int isNumber(char num[])
 {
-	while (*str)
+	int i, l = strlen(num);
+
+	for (i = 0; i < l; i++)
 	{
-		if (!isdigit(*str))
-		{
-			return (false);
-		}
-		str++;
+		if (!isdigit(num[i]))
+			return (1);
 	}
-	return (true);
+	return (0);
 }
 
+
 /**
- * main - Entry point
- * @argc: The number of command-line arguments
- * @argv: An array containing the command-line arguments
+ * main - a program that adds positive numbers
  *
- * Return: 0 for success, 1 for error
- */
+ * @argc: holds the number of arguments passed
+ * @argv: array pointer that holds the arguments passed
+ *
+ * Return: Always 0 (Success)
+*/
+
 int main(int argc, char *argv[])
 {
-	int sum = 0;
+	int i, sum;
 
 	if (argc == 1)
 	{
 		printf("0\n");
-		return (0);
 	}
-
-	for (int i = 1; i < argc; i++)
+	else
 	{
-		if (isPositiveInteger(argv[i]))
+		sum = 0;
+		for (i = 1; i < argc; i++)
 		{
-			int num = atoi(argv[i]);
-
-			if (sum > INT_MAX - num)
+			if (isNumber(argv[i]) == 0)
+			{
+				sum += atoi(argv[i]);
+			}
+			else
 			{
 				printf("Error\n");
 				return (1);
 			}
-			sum += num;
 		}
-		else
-		{
-			printf("Error\n");
-			return (1);
-		}
+		printf("%d\n", sum);
 	}
-
-	printf("%d\n", sum);
 	return (0);
 }
