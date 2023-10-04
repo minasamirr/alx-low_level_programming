@@ -1,112 +1,129 @@
 #include "main.h"
 #include <stdlib.h>
 
-int count_words(char *str);
-void create_words(char **words, char *str, int num_words);
-int is_whitespace(char c);
+char **split_words(char *str);
+void free_word_array(char **words);
+char *extract_word(char *str, int start, int end);
 
 /**
- * strtow - Splits a string into words.
+ * split_words - Splits a string into words.
  * @str: The input string.
  *
  * Return: A pointer to an array of strings (words), or NULL on failure.
  * Each element of the array contains a single word, null-terminated.
  * The last element of the array is NULL.
  */
-char **strtow(char *str)
+char **split_words(char *str)
 {
-	int num_words, i = 0, in_word = 0, start = 0, word_index = 0;
-	char **words;
-
-	if (str == NULL || *str == '\0')
-		return (NULL);
-
-	num_words = count_words(str);
-	if (num_words == 0)
-		return (NULL);
-
-	words = (char **)malloc((num_words + 1) * sizeof(char *));
-	if (words == NULL)
-		return (NULL);
-
-	while (str[i])
+	if (str == NULL || str[0] == '\0' || (str[0] == ' ' && str[1] == '\0'))
 	{
-		if (!in_word && !is_whitespace(str[i]))
+		return (NULL);
+	}
+
+	int len = 0;
+	int num_words = 0;
+	int in_word = 0;
+
+	while (str[len])
+	{
+		if (!in_word && str[len] != ' ')
 		{
-			start = i;
 			in_word = 1;
+			num_words++;
 		}
-		else if (in_word && is_whitespace(str[i]))
+		else if (in_word && str[len] == ' ')
 		{
 			in_word = 0;
-			create_words(words, str + start, i - start);
-			word_index++;
 		}
-		i++;
+		len++;
 	}
 
 	if (in_word)
-		create_words(words, str + start, i - start);
+	{
+		num_words++;
+	}
 
-	words[word_index] = NULL;
+	if (num_words == 0)
+	{
+		return (NULL);
+	}
+
+	char **words = (char **)malloc((num_words + 1) * sizeof(char *));
+	if (words == NULL)
+	{
+		return (NULL);
+	}
+
+	int i = 0;
+	int start = 0;
+
+	for (int j = 0; j < len; j++)
+	{
+		if (!in_word && str[j] != ' ')
+		{
+			start = j;
+			in_word = 1;
+		}
+		else if (in_word && str[j] == ' ')
+		{
+			in_word = 0;
+			words[i++] = extract_word(str, start, j);
+		}
+	}
+
+	if (in_word)
+	{
+		words[i++] = extract_word(str, start, len);
+	}
+
+	words[i] = NULL;
 
 	return (words);
 }
 
 /**
- * count_words - Counts the number of words in a string.
+ * extract_word - Extracts a word from a string.
  * @str: The input string.
+ * @start: The starting index of the word.
+ * @end: The ending index of the word.
  *
- * Return: The number of words.
+ * Return: A pointer to the extracted word.
  */
-int count_words(char *str)
+char *extract_word(char *str, int start, int end)
 {
-	int count = 0, in_word = 0;
+	int length = end - start;
+	char *word = (char *)malloc((length + 1) * sizeof(char));
 
-	while (*str)
+	if (word == NULL)
 	{
-		if (is_whitespace(*str))
-		{
-			in_word = 0;
-		}
-		else if (!in_word)
-		{
-			in_word = 1;
-			count++;
-		}
-		str++;
+		return (NULL);
 	}
-	return (count);
+
+	for (int i = 0; start < end; start++, i++)
+	{
+		word[i] = str[start];
+	}
+
+	word[length] = '\0';
+
+	return (word);
 }
 
 /**
- * create_words - Creates a word and inserts it into the array.
- * @words: The array of strings.
- * @str: The string containing the word.
- * @length: The length of the word.
+ * free_word_array - Frees the memory allocated for an array of words.
+ * @words: The array of words.
  */
-void create_words(char **words, char *str, int length)
+void free_word_array(char **words)
 {
-	int i;
-
-	words[0] = (char *)malloc((length + 1) * sizeof(char));
-	if (words[0] == NULL)
+	if (words == NULL)
+	{
 		return;
-
-	for (i = 0; i < length; i++)
-	{
-		words[0][i] = str[i];
 	}
-	words[0][length] = '\0';
-}
 
-/**
- * is_whitespace - Checks if a character is whitespace.
- * @c: The character to check.
- *
- * Return: 1 if c is whitespace, 0 otherwise.
- */
-int is_whitespace(char c)
-{
-    return (c == ' ' || c == '\t' || c == '\n' || c == '.' || c == ',' || c == '!' || c == '?' || c == ';');
+	for (int i = 0; words[i] != NULL; i++)
+	{
+		free(words[i]);
+	}
+
+	free(words);
 }
