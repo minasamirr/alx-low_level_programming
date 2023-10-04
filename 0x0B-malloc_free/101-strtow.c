@@ -5,19 +5,11 @@ char **split_words(char *str);
 void free_word_array(char **words);
 char *extract_word(char *str, int start, int end);
 
-/**
- * split_words - Splits a string into words.
- * @str: The input string.
- *
- * Return: A pointer to an array of strings (words), or NULL on failure.
- * Each element of the array contains a single word, null-terminated.
- * The last element of the array is NULL.
- */
 char **split_words(char *str)
 {
 	if (str == NULL || str[0] == '\0' || (str[0] == ' ' && str[1] == '\0'))
 	{
-		return (NULL);
+		return NULL;
 	}
 
 	int len = 0;
@@ -45,19 +37,20 @@ char **split_words(char *str)
 
 	if (num_words == 0)
 	{
-		return (NULL);
+		return NULL;
 	}
 
 	char **words = (char **)malloc((num_words + 1) * sizeof(char *));
 	if (words == NULL)
 	{
-		return (NULL);
+		return NULL;
 	}
 
 	int i = 0;
 	int start = 0;
+	int j = 0;
 
-	for (int j = 0; j < len; j++)
+	while (str[j])
 	{
 		if (!in_word && str[j] != ' ')
 		{
@@ -69,11 +62,12 @@ char **split_words(char *str)
 			in_word = 0;
 			words[i++] = extract_word(str, start, j);
 		}
+		j++;
 	}
 
 	if (in_word)
 	{
-		words[i++] = extract_word(str, start, len);
+		words[i++] = extract_word(str, start, j);
 	}
 
 	words[i] = NULL;
@@ -81,14 +75,6 @@ char **split_words(char *str)
 	return (words);
 }
 
-/**
- * extract_word - Extracts a word from a string.
- * @str: The input string.
- * @start: The starting index of the word.
- * @end: The ending index of the word.
- *
- * Return: A pointer to the extracted word.
- */
 char *extract_word(char *str, int start, int end)
 {
 	int length = end - start;
@@ -96,12 +82,16 @@ char *extract_word(char *str, int start, int end)
 
 	if (word == NULL)
 	{
-		return (NULL);
+		return NULL;
 	}
 
-	for (int i = 0; start < end; start++, i++)
+	int i = 0;
+
+	while (start < end)
 	{
 		word[i] = str[start];
+		i++;
+		start++;
 	}
 
 	word[length] = '\0';
@@ -109,10 +99,6 @@ char *extract_word(char *str, int start, int end)
 	return (word);
 }
 
-/**
- * free_word_array - Frees the memory allocated for an array of words.
- * @words: The array of words.
- */
 void free_word_array(char **words)
 {
 	if (words == NULL)
@@ -120,9 +106,12 @@ void free_word_array(char **words)
 		return;
 	}
 
-	for (int i = 0; words[i] != NULL; i++)
+	int i = 0;
+
+	while (words[i] != NULL)
 	{
 		free(words[i]);
+		i++;
 	}
 
 	free(words);
