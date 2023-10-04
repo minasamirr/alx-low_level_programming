@@ -87,11 +87,13 @@ int count_words(char *str)
  */
 void create_words(char **words, char *str, int length)
 {
+	int i;
+
 	words[0] = (char *)malloc((length + 1) * sizeof(char));
 	if (words[0] == NULL)
 		return;
 
-	for (int i = 0; i < length; i++)
+	for (i = 0; i < length; i++)
 	{
 		words[0][i] = str[i];
 	}
