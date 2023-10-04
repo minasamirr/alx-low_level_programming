@@ -108,5 +108,5 @@ void create_words(char **words, char *str, int length)
  */
 int is_whitespace(char c)
 {
-	return (c == ' ' || c == '\t' || c == '\n');
+    return (c == ' ' || c == '\t' || c == '\n' || c == '.' || c == ',' || c == '!' || c == '?' || c == ';');
 }
