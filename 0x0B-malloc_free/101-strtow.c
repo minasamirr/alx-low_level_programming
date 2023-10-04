@@ -11,60 +11,50 @@
  */
 char **strtow(char *str)
 {
-	char **words;
-	int i, j, k, word_count = 0;
-	int word_len = 0;
-	int str_len = 0;
-
 	if (str == NULL || *str == '\0')
 		return (NULL);
 
-	/* Calculate the total number of words in the string */
-	str_len = strlen(str);
-	for (i = 0; i < str_len; i++)
+	int word_count = 0, i = 0, j, k = 0;
+	int len = strlen(str);
+
+	/* Count the number of words */
+	while (i < len)
 	{
-		if (str[i] != ' ')
-		{
+		while (i < len && str[i] == ' ')
+			i++;
+		if (i < len)
 			word_count++;
-			while (str[i] != ' ' && str[i] != '\0')
-			{
-				word_len++;
-				i++;
-			}
-		}
+		while (i < len && str[i] != ' ')
+			i++;
 	}
 
+	if (word_count == 0)
+		return (NULL);
+
 	/* Allocate memory for the array of words */
-	words = malloc((word_count + 1) * sizeof(char *));
+	char **words = malloc((word_count + 1) * sizeof(char *));
 	if (words == NULL)
 		return (NULL);
 
-	/* Allocate memory for each word and copy it */
 	i = 0;
-	k = 0;
-	while (i < str_len && k < word_count)
+	while (i < len && k < word_count)
 	{
-		if (str[i] != ' ')
+		while (i < len && str[i] == ' ')
+			i++;
+		j = i;
+		while (i < len && str[i] != ' ')
+			i++;
+		words[k] = malloc((i - j + 1) * sizeof(char));
+		if (words[k] == NULL)
 		{
-			j = 0;
-			while (str[i] != ' ' && str[i] != '\0')
-			{
-				i++;
-				j++;
-			}
-			words[k] = malloc((j + 1) * sizeof(char));
-			if (words[k] == NULL)
-			{
-				for (k = 0; k < word_count; k++)
-					free(words[k]);
-				free(words);
-				return (NULL);
-			}
-			strncpy(words[k], str + i - j, j);
-			words[k][j] = '\0';
-			k++;
+			for (k = 0; k < word_count; k++)
+				free(words[k]);
+			free(words);
+			return (NULL);
 		}
-		i++;
+		strncpy(words[k], str + j, i - j);
+		words[k][i - j] = '\0';
+		k++;
 	}
 	words[k] = NULL;
 
