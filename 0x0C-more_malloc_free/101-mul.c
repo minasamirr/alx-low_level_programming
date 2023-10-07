@@ -1,64 +1,59 @@
 #include "main.h"
 
 /**
- * is_positive_integer - Checks if a string represents a positive integer
- * @str: The string to check
- *
- * Return: 1 if it's a positive integer, 0 otherwise
+ * print_result - Print the result without leading zeroes
+ * @result: The result as a string
  */
-int is_positive_integer(char *str)
+void print_result(char *result)
 {
-	int i = 0;
+    int i = 0;
+    while (result[i] == '0' && result[i + 1] != '\0')
+    {
+        i++;
+    }
 
-	while (str[i] != '\0')
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-		i++;
-	}
-	return (1);
+    while (result[i] != '\0')
+    {
+        _putchar(result[i]);
+        i++;
+    }
+
+    _putchar('\n');
 }
 
 /**
- * perform_multiplication - Performs multiplication of two positive integers
- * represented as strings
- * @num1: The first number as a string
- * @num2: The second number as a string
- * @result: The result array to store the product
+ * multiply_single_digit - Multiply a single digit by a string of digits
+ * @digit: The single digit
+ * @num: The string of digits to multiply
+ * @result: The result string
+ * @result_index: The starting index for the result
  *
- * Return: Length of the result
+ * Return: 1 if multiplication is successful, 0 on failure
  */
-int perform_multiplication(char *num1, char *num2, int *result)
+int multiply_single_digit(char digit, char *num, char *result, int result_index)
 {
-	int len1 = strlen(num1);
-	int len2 = strlen(num2);
-	int len = len1 + len2;
+    int carry = 0;
+    int digit_int = digit - '0';
+    int num_len = strlen(num);
 
-	for (int i = len1 - 1; i >= 0; i--)
-	{
-		for (int j = len2 - 1; j >= 0; j--)
-		{
-			int product = (num1[i] - '0') * (num2[j] - '0');
-			int sum = product + result[i + j + 1];
+    for (int i = num_len - 1; i >= 0; i--)
+    {
+        int product = (num[i] - '0') * digit_int + carry;
+        carry = product / 10;
+        result[result_index] = (product % 10) + '0';
+        result_index--;
+    }
 
-			result[i + j] += sum / 10;
-			result[i + j + 1] = sum % 10;
-		}
-	}
+    if (carry != 0)
+    {
+        return 0; // Multiplication resulted in overflow
+    }
 
-	int i = 0;
-
-	while (i < len && result[i] == 0)
-		i++;
-
-	if (i == len)
-		return (1);
-
-	return (len - i);
+    return 1;
 }
 
 /**
- * multiply - Multiplies two positive integers represented as strings
+ * multiply - Multiply two positive numbers represented as strings
  * @num1: The first number as a string
  * @num2: The second number as a string
  *
@@ -66,53 +61,63 @@ int perform_multiplication(char *num1, char *num2, int *result)
  */
 char *multiply(char *num1, char *num2)
 {
-	int *result;
-	int result_len;
+    if (num1 == NULL || num2 == NULL || !is_positive_integer(num1) || !is_positive_integer(num2))
+    {
+        return NULL; // Invalid input
+    }
 
-	if (!num1 || !num2)
-		return (NULL);
+    int len1 = strlen(num1);
+    int len2 = strlen(num2);
+    int result_len = len1 + len2;
 
-	result = calloc(strlen(num1) + strlen(num2), sizeof(int));
+    char *result = malloc((result_len + 1) * sizeof(char));
+    if (result == NULL)
+    {
+        perror("Memory allocation failed");
+        exit(98);
+    }
 
-	if (!result)
-	{
-		perror("Memory allocation failed");
-		exit(1);
-	}
+    for (int i = 0; i < result_len; i++)
+    {
+        result[i] = '0'; // Initialize result to '0'
+    }
+    result[result_len] = '\0';
 
-	result_len = perform_multiplication(num1, num2, result);
+    for (int i = len1 - 1; i >= 0; i--)
+    {
+        if (!multiply_single_digit(num1[i], num2, result, i + len2))
+        {
+            free(result);
+            return NULL; // Multiplication resulted in overflow
+        }
+    }
 
-	char *result_str = malloc(result_len + 1);
-
-	if (!result_str)
-	{
-		perror("Memory allocation failed");
-		exit(1);
-	}
-
-	for (int i = 0; i < result_len; i++)
-		result_str[i] = result[i] + '0';
-
-	result_str[result_len] = '\0';
-	free(result);
-
-	return (result_str);
+    return result;
 }
+
 int main(int argc, char *argv[])
 {
-	if (argc != 3 || !is_positive_integer(argv[1]) || !is_positive_integer(argv[2]))
-	{
-		printf("Error\n");
-		return (98);
-	}
+    if (argc != 3 || !is_positive_integer(argv[1]) || !is_positive_integer(argv[2]))
+    {
+        printf("Error\n");
+        return 98;
+    }
 
-	char *num1 = argv[1];
-	char *num2 = argv[2];
+    char *num1 = argv[1];
+    char *num2 = argv[2];
 
-	char *result = multiply(num1, num2);
-	printf("%s\n", result);
+    char *result = multiply(num1, num2);
 
-	free(result);
+    if (result != NULL)
+    {
+        print_result(result);
+        free(result);
+    }
+    else
+    {
+        printf("Error\n");
+        return 98;
+    }
 
-	return (0);
+    return 0;
 }

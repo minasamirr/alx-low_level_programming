@@ -1,9 +1,9 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+void print_result(char *result);
+int multiply_single_digit(char digit, char *num, char *result, int result_index);
 char *multiply(char *num1, char *num2);
-int perform_multiplication(char *num1, char *num2, int *result);
-int is_positive_integer(char *str);
 #include <stdio.h>
 #include <stdlib.h>
 int _putchar(char c);
