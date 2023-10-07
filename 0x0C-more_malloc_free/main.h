@@ -1,10 +1,9 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void _print(char *str, int l);
-char *mul(char n, char *num, int num_index, char *dest, int dest_index);
-int check_for_digits(char **av);
-void init(char *str, int l);
+char *multiply(char *num1, char *num2);
+int perform_multiplication(char *num1, char *num2, int *result);
+int is_positive_integer(char *str);
 #include <stdio.h>
 #include <stdlib.h>
 int _putchar(char c);
