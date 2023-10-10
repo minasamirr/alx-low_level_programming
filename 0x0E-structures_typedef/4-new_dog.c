@@ -1,5 +1,5 @@
-#include "dog.h"
 #include <stdlib.h>
+#include "dog.h"
 
 /**
  * new_dog - Creates a new dog with specified attributes.
@@ -11,39 +11,44 @@
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *new_dog_ptr;
-	int name_length = 0;
-	int owner_length = 0;
+	unsigned int name_len, owner_len, i;
+	dog_t *new_dog;
 
-	while (name[name_length])
-		name_length++;
+	if (name == NULL || owner == NULL)
+		return (NULL);
 
-	while (owner[owner_length])
-		owner_length++;
+	new_dog = malloc(sizeof(dog_t));
+	if (new_dog == NULL)
+		return (NULL);
 
-	new_dog_ptr = malloc(sizeof(dog_t));
+	while (name[name_len])
+		name_len++;
 
-	if (!new_dog_ptr)
-		return (NULL); /* Memory allocation failed */
-
-	new_dog_ptr->name = malloc(name_length + 1);
-	new_dog_ptr->owner = malloc(owner_length + 1);
-
-	if (!new_dog_ptr->name || !new_dog_ptr->owner)
+	new_dog->name = malloc(name_len * sizeof(char));
+	if (new_dog->name == NULL)
 	{
-		free(new_dog_ptr->name);
-		free(new_dog_ptr->owner);
-		free(new_dog_ptr);
+		free(new_dog);
 		return (NULL);
 	}
 
-	for (int i = 0; i <= name_length; i++)
-		new_dog_ptr->name[i] = name[i];
+	for (i = 0; i < name_len; i++)
+		new_dog->name[i] = name[i];
 
-	for (int i = 0; i <= owner_length; i++)
-		new_dog_ptr->owner[i] = owner[i];
+	new_dog->age = age;
 
-	new_dog_ptr->age = age;
+	while (owner[owner_len])
+		owner_len++;
 
-	return (new_dog_ptr);
+	new_dog->owner = malloc(owner_len * sizeof(char));
+	if (new_dog->owner == NULL)
+	{
+		free(new_dog->name);
+		free(new_dog);
+		return (NULL);
+	}
+
+	for (i = 0; i < owner_len; i++)
+		new_dog->owner[i] = owner[i];
+
+	return (new_dog);
 }
