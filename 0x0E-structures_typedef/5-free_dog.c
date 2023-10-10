@@ -8,8 +8,10 @@
  * Description: This function frees the memory allocated for a dog_t structure,
  * including the memory for the name and owner strings.
  */
-void free_dog(dog_t *d) {
-	if (d != NULL) {
+void free_dog(dog_t *d)
+{
+	if (d != NULL)
+	{
 		free(d->name);
 		free(d->owner);
 		free(d);
