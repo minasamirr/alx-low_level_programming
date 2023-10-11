@@ -16,7 +16,8 @@
 
 int main(int argc, char *argv[])
 {
-	int i, count;
+	int i;
+	int count;
 	char *ptr = (char *) main;
 
 	if (argc != 2)
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
 	for (i = 0; i < count; i++)
 	{
 		printf("%02x", ptr[i] & 0xFF);
-		if (i != --count)
+		if (i != count--)
 			printf(" ");
 	}
 	printf("\n");
