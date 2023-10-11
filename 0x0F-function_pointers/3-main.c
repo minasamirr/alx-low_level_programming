@@ -14,6 +14,8 @@
  */
 int main(int argc, char *argv[])
 {
+	int n1;
+	int n2;
 	char *ptr;
 
 	if (argc != 4)
@@ -22,6 +24,8 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
+	n1 = atoi(argv[1]);
+	n2 = atoi(argv[3]);
 	ptr = argv[2];
 
 	if (get_op_func(ptr) == NULL || ptr[1] != '\0')
@@ -30,13 +34,13 @@ int main(int argc, char *argv[])
 		exit(99);
 	}
 
-	if ((*ptr == 47 || *ptr == 37) && num2 == 0)
+	if ((*ptr == 47 || *ptr == 37) && n2 == 0)
 	{
 		printf("Error\n");
 		exit(100);
 	}
 
-	printf("%d\n", get_op_func(ptr)(atoi(argv[1]), atoi(argv[3])));
+	printf("%d\n", get_op_func(ptr)((n1), (n2)));
 
 	return (0);
 }
