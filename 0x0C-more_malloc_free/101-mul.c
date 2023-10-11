@@ -1,46 +1,87 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-int is_digit(const char *str) {
-    while (*str) if (*str < '0' || *str > '9') return 0;
-    return 1;
+int is_digit(const char *str)
+{
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return 0;
+		str++;
+	}
+	return 1;
 }
 
-char *multiply(const char *n1, const char *n2) {
-    
-	char *s;
-	int l1 = strlen(n1), l2 = strlen(n2), l = l1 + l2, i, j;
-    int *r = calloc(l, 4);
-    if (!r) exit(98);
+char *multiply(const char *num1, const char *num2)
+{
+	int len1 = strlen(num1);
+	int len2 = strlen(num2);
+	int len_result = len1 + len2;
+	int i, j, start;
+	char *result_str;
+	int *result = calloc(len_result, sizeof(int));
+	if (!result)
+	{
+		printf("Error\n");
+		exit(98);
+	}
 
-    for (i = l1; i--;)
-        for (j = l2; j--; r[i + j + 1] += (n1[i] - 48) * (n2[j] - 48))
-            r[i + j] += r[i + j + 1] / 10, r[i + j + 1] %= 10;
+	for (i = len1 - 1; i >= 0; i--)
+	{
+		for (j = len2 - 1; j >= 0; j--)
+		{
+			int digit1 = num1[i] - '0';
+			int digit2 = num2[j] - '0';
+			int product = digit1 * digit2;
+			int carry = product / 10;
+			int remainder = product % 10;
+			result[i + j + 1] += remainder;
+			result[i + j] += carry;
+		}
+	}
 
-    while (*r == 0) l--, r++;
+	for (i = 0; i < len_result; i++)
+	{
+		result[i + 1] += result[i] / 10;
+		result[i] %= 10;
+	}
 
-    s = malloc(l + 1);
-    if (!s) exit(98);
+	start = 0;
+	while (start < len_result && result[start] == 0)
+		start++;
 
-    for (i = 0; i < l; i++) s[i] = r[i] + 48;
-    s[l] = '\0';
+	result_str = malloc(len_result - start + 1);
+	if (!result_str)
+	{
+		free(result);
+		printf("Error\n");
+		exit(98);
+	}
 
-    free(r);
-    return s;
+	for (i = start; i < len_result; i++)
+		result_str[i - start] = result[i] + '0';
+	result_str[len_result - start] = '\0';
+
+	free(result);
+	return result_str;
 }
 
-int main(int ac, char **av) {
-    
-	char *res;
-	if (ac != 3 || !is_digit(av[1]) || !is_digit(av[2])) {
-        printf("Error\n");
-        return 98;
-    }
+int main(int argc, char *argv[])
+{
+	char *result, *num1, *num2;
 
-    res = multiply(av[1], av[2]);
-    printf("%s\n", res);
-    free(res);
-    return 0;
+	if (argc != 3 || !is_digit(argv[1]) || !is_digit(argv[2]))
+	{
+		printf("Error\n");
+		return 98;
+	}
+
+	num1 = argv[1];
+	num2 = argv[2];
+	result = multiply(num1, num2);
+
+	printf("%s\n", result);
+	free(result);
+
+	return 0;
 }
 
