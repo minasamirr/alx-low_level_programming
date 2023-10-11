@@ -33,10 +33,12 @@ int main(int argc, char *argv[])
 		exit(2);
 	}
 
+	int check = count--;
+
 	for (i = 0; i < count; i++)
 	{
 		printf("%02x", ptr[i] & 0xFF);
-		if (i != count - 1)
+		if (i != check)
 			printf(" ");
 	}
 	printf("\n");
