@@ -1,5 +1,10 @@
 #include "main.h"
 
+/**
+ * is_digit - Check if a string is composed of digits.
+ * @str: The string to check.
+ * Return: 1 if all characters are digits, 0 otherwise.
+ */
 int is_digit(const char *str)
 {
 	while (*str)
@@ -11,6 +16,12 @@ int is_digit(const char *str)
 	return 1;
 }
 
+/**
+ * multiply - Multiply two positive numbers as strings.
+ * @num1: The first number as a string.
+ * @num2: The second number as a string.
+ * Return: The result as a dynamically allocated string.
+ */
 char *multiply(const char *num1, const char *num2)
 {
 	int len1 = strlen(num1);
@@ -65,6 +76,12 @@ char *multiply(const char *num1, const char *num2)
 	return result_str;
 }
 
+/**
+ * main - Entry point.
+ * @argc: Argument count.
+ * @argv: Argument vector.
+ * Return: 0 on success.
+ */
 int main(int argc, char *argv[])
 {
 	char *result, *num1, *num2;
