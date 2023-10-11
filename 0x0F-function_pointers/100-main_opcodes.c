@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	for (i = 0; i < count; i++)
 	{
 		printf("%02x", ptr[i] & 0xFF);
-		if (i != count--)
+		if (i != count - 1)
 			printf(" ");
 	}
 	printf("\n");
