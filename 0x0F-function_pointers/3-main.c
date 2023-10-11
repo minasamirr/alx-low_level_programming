@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 /**
  * main - Entry point
  * @argc: The number of command-line arguments
