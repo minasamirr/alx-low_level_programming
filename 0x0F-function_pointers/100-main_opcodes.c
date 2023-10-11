@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * print_opcodes - Print opcodes of the main function.
@@ -32,14 +33,14 @@ int main(int argc, char *argv[])
 	if (argc != 2)
 	{
 		printf("Error\n");
-		return (1);
+		exit(1);
 	}
 
 	int num_bytes = atoi(argv[1]);
 	if (num_bytes < 0)
 	{
 		printf("Error\n");
-		return (2);
+		exit(2);
 	}
 
 	print_opcodes(num_bytes);
