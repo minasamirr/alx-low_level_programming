@@ -1,11 +1,13 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void print_result(char *result);
-int multiply_single_digit(char digit, char *num, char *result, int result_index);
-char *multiply(char *num1, char *num2);
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+int is_digit(const char *str);
+char *multiply(const char *n1, const char *n2);
+
 int _putchar(char c);
 void *malloc_checked(unsigned int b);
 char *string_nconcat(char *s1, char *s2, unsigned int n);
