@@ -16,8 +16,7 @@
 
 int main(int argc, char *argv[])
 {
-	int i;
-	int count;
+	int i, count;
 	char *ptr = (char *) main;
 
 	if (argc != 2)
