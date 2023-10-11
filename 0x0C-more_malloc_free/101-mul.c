@@ -10,10 +10,10 @@ int is_digit(const char *str)
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
-			return 0;
+			return (0);
 		str++;
 	}
-	return 1;
+	return (1);
 }
 
 /**
@@ -30,6 +30,7 @@ char *multiply(const char *num1, const char *num2)
 	int i, j, start;
 	char *result_str;
 	int *result = calloc(len_result, sizeof(int));
+
 	if (!result)
 	{
 		printf("Error\n");
@@ -73,7 +74,7 @@ char *multiply(const char *num1, const char *num2)
 	result_str[len_result - start] = '\0';
 
 	free(result);
-	return result_str;
+	return (result_str);
 }
 
 /**
@@ -89,7 +90,7 @@ int main(int argc, char *argv[])
 	if (argc != 3 || !is_digit(argv[1]) || !is_digit(argv[2]))
 	{
 		printf("Error\n");
-		return 98;
+		return (98);
 	}
 
 	num1 = argv[1];
@@ -99,6 +100,6 @@ int main(int argc, char *argv[])
 	printf("%s\n", result);
 	free(result);
 
-	return 0;
+	return (0);
 }
 
