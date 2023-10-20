@@ -6,7 +6,19 @@
 #include <string.h>
 #include <stdlib.h>
 
-typedef struct list_s {
+/**
+ * struct list_s - A structure to represent a linked list node.
+ * @str: Pointer to a string stored in the node.
+ * @len: Length of the string.
+ * @next: Pointer to the next node in the linked list.
+ *
+ * Description:
+ * This structure defines a node for a singly linked list. It contains a
+ * string pointer (@str) to store the string data, an unsigned integer (@len)
+ * to store the length of the string, and a pointer to the next node (@next).
+ */
+typedef struct list_s
+{
 	char *str;
 	unsigned int len;
 	struct list_s *next;
