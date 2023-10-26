@@ -5,13 +5,13 @@
  * @n: A pointer to the unsigned long int number to modify.
  * @index: The index of the bit to set to 0, starting from 0.
  *
- * Return: (1) if it worked, or (-1) if an error occurred.
+ * Return: 1 if it worked, or -1 if an error occurred.
  */
 int clear_bit(unsigned long int *n, unsigned int index)
 {
 	unsigned long int mask;
 
-	if (index >= (sizeof(unsigned long int) * 8 || n == NULL)
+	if (index >= (sizeof(unsigned long int) * 8 || n == NULL))
 	{
 		return (-1);
 	}
@@ -19,7 +19,7 @@ int clear_bit(unsigned long int *n, unsigned int index)
 	mask = 1UL << index;
 	mask = ~mask;
 
-	*n &= mask;
+	*n = *n & mask;
 
 	return (1);
 }
