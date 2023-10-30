@@ -24,8 +24,10 @@ void print_error(char *msg)
  */
 void display_elf_header(Elf64_Ehdr *header)
 {
+	int i;
+
 	printf("  Magic:   ");
-	for (int i = 0; i < 16; i++)
+	for (i = 0; i < 16; i++)
 	{
 		printf("%02x ", header->e_ident[i]);
 	}
