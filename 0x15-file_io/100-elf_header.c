@@ -33,10 +33,8 @@ void display_elf_header(Elf64_Ehdr *header)
 	}
 	printf("\n");
 
-	printf("  Class:                             %s\n",
-	       (header->e_ident[EI_CLASS] == ELFCLASS64) ? "ELF64" : "ELF32");
-	printf("  Data:                              %s\n",
-	       (header->e_ident[EI_DATA] == ELFDATA2LSB) ? "2's complement, little-endian" : "2's complement, big-endian");
+	printf("  Class:                             %s\n", (header->e_ident[EI_CLASS] == ELFCLASS64) ? "ELF64" : "ELF32");
+	printf("  Data:                              %s\n", (header->e_ident[EI_DATA] == ELFDATA2LSB) ? "2's complement, little-endian" : "2's complement, big-endian");
 	printf("  Version:                           %d (current)\n", header->e_ident[EI_VERSION]);
 	printf("  OS/ABI:                            %d\n", header->e_ident[EI_OSABI]);
 	printf("  ABI Version:                       %d\n", header->e_ident[EI_ABIVERSION]);
@@ -45,11 +43,11 @@ void display_elf_header(Elf64_Ehdr *header)
 }
 
 /**
- * main - Copy the content of one file to another
+ * main - Display ELF header information
  * @argc: The number of command-line arguments
  * @argv: An array of command-line arguments
  *
- * Return: 0 on success
+ * Return: 0 on success, 98 on error
  */
 int main(int argc, char *argv[])
 {
@@ -80,6 +78,7 @@ int main(int argc, char *argv[])
 		print_error("Not an ELF file");
 	}
 
+	printf("ELF Header:\n");
 	display_elf_header(&header);
 	close(fd);
 
